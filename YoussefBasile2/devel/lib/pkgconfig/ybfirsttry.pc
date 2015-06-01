@@ -1,0 +1,8 @@
+prefix=/home/turtlebot/YoussefBasile2/devel
+
+Name: ybfirsttry
+Description: Description of ybfirsttry
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/turtlebot/YoussefBasile2/devel/lib 
+Requires: 

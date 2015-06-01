@@ -1,0 +1,9 @@
+/home/turtlebot/YoussefBasile2/build/CMakeFiles/clean_test_results.dir
+/home/turtlebot/YoussefBasile2/build/CMakeFiles/doxygen.dir
+/home/turtlebot/YoussefBasile2/build/gtest/CMakeFiles/gtest.dir
+/home/turtlebot/YoussefBasile2/build/gtest/CMakeFiles/gtest_main.dir
+/home/turtlebot/YoussefBasile2/build/CMakeFiles/run_tests.dir
+/home/turtlebot/YoussefBasile2/build/ybfirsttry/CMakeFiles/std_msgs_generate_messages_cpp.dir
+/home/turtlebot/YoussefBasile2/build/ybfirsttry/CMakeFiles/std_msgs_generate_messages_lisp.dir
+/home/turtlebot/YoussefBasile2/build/ybfirsttry/CMakeFiles/std_msgs_generate_messages_py.dir
+/home/turtlebot/YoussefBasile2/build/CMakeFiles/tests.dir

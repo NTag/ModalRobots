@@ -1,0 +1,2 @@
+ybfirsttry
+-DCATKIN_DEVEL_PREFIX=/home/turtlebot/YoussefBasile2/devel -DCMAKE_INSTALL_PREFIX=/home/turtlebot/YoussefBasile2/install -G Unix Makefiles

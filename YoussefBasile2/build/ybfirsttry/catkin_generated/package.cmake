@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "ybfirsttry")
+set(ybfirsttry_MAINTAINER "turtlebot <turtlebot@todo.todo>")
+set(ybfirsttry_DEPRECATED "")
+set(ybfirsttry_VERSION "0.0.0")
+set(ybfirsttry_BUILD_DEPENDS "rospy" "std_msgs")
+set(ybfirsttry_RUN_DEPENDS "rospy" "std_msgs")
+set(ybfirsttry_BUILDTOOL_DEPENDS "catkin")
