@@ -47,11 +47,21 @@ Voici les résultats de ces mesures :
 On voit déjà que la vitesse horizontale au centre de l'image est quasiment nulle et qu'elle augmente plus on va vers la droite, ce qui confirme bien notre idée initiale. Nous nous sommes ensuite demandés si la coordonnée verticale avait aussi une importance.
 
 \begin{figure}[h]
-	\caption{\label{vitesses-3d-apercu} Vitesse horizontale en fonction de x et y}
+	\caption{\label{vitesses-3d} Vitesse horizontale en fonction de x et y}
 	\includegraphics[scale=0.45]{images/vitesses-3d-apercu.png}
 	\includegraphics[scale=0.45]{images/vitesses-3d-selon-y.png}
 \end{figure}
 
 Il semble alors que la coordonnée y a une importance, les points en haut de l'image vont moins vite que ceux qui sont en bas.
+
+\section{Régression polynomiale des données}
+Afin de pouvoir comparer rapidement la vitesse réelle d'un point avec la vitesse théorique d'un point à la même position si le drone longeait à la bonne vitesse et à la bonne distance un mur, il nous faut obtenir une fonction qui à des coordonnées retourne la vitesse théorique. On ne peut pas consulter les \num{25000} mesures et retourner la vitesse du point le plus proche dont on avait mesuré la vitesse.
+
+Nous avons donc choisi d'effectuer une régression polynomiale pour obtenir l'équation d'une courbe "théorique". Nous avons utilisé Scikit qui propose plusieurs outils pour calculer ce genre de chose. Finalement voici la courbe que nous avons obtenue, en demandant un polynôme de degré 2.
+
+\begin{figure}[h]
+	\caption{\label{regression} Surface obtenue par régression polynomiale}
+	\includegraphics[scale=0.8]{images/surface-regression.png}
+\end{figure}
 
 \end{document}
