@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.2.9)  6 JUN 2015 21:56
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.2.9)  6 JUN 2015 22:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1063,35 +1063,66 @@ Package pdftex.def Info: logovert.pdf used on input line 17.
 cal/texlive/2013/texmf-dist/tex/latex/polytechnique/armes.pdf> </usr/local/texl
 ive/2013/texmf-dist/tex/latex/polytechnique/filetcourtbleu.pdf> </usr/local/tex
 live/2013/texmf-dist/tex/latex/polytechnique/logovert.pdf>]
-<logohori.pdf, id=70, 195.52248pt x 85.3575pt>
+<images/vitesses-2d.png, id=70, 851.18pt x 546.04pt>
+File: images/vitesses-2d.png Graphic file (type png)
+
+<use images/vitesses-2d.png>
+Package pdftex.def Info: images/vitesses-2d.png used on input line 44.
+(pdftex.def)             Requested size: 383.02745pt x 245.71573pt.
+ <logohori.pdf, id=72, 195.52248pt x 85.3575pt>
 File: logohori.pdf Graphic file (type pdf)
- <use logohori.pdf>
-Package pdftex.def Info: logohori.pdf used on input line 40.
+
+<use logohori.pdf>
+Package pdftex.def Info: logohori.pdf used on input line 48.
 (pdftex.def)             Requested size: 97.76396pt x 42.67912pt.
  [2
 
- </usr/local/texlive/2013/texmf-dist/tex/latex/polytechnique/logohori.pdf>] (./
-rapport.aux) ) 
+ </usr/local/texlive/2013/texmf-dist/tex/latex/polytechnique/logohori.pdf> <./i
+mages/vitesses-2d.png>]
+<images/vitesses-3d-apercu.png, id=102, 482.80376pt x 400.49625pt>
+File: images/vitesses-3d-apercu.png Graphic file (type png)
+
+<use images/vitesses-3d-apercu.png>
+Package pdftex.def Info: images/vitesses-3d-apercu.png used on input line 51.
+(pdftex.def)             Requested size: 217.25967pt x 180.22165pt.
+
+<images/vitesses-3d-selon-y.png, id=103, 621.32124pt x 447.6725pt>
+File: images/vitesses-3d-selon-y.png Graphic file (type png)
+
+<use images/vitesses-3d-selon-y.png>
+Package pdftex.def Info: images/vitesses-3d-selon-y.png used on input line 52.
+(pdftex.def)             Requested size: 279.59198pt x 201.45076pt.
+
+Overfull \hbox (15.58812pt too wide) in paragraph at lines 51--53
+[][] [] 
+ []
+
+File: logohori.pdf Graphic file (type pdf)
+<use logohori.pdf>
+Package pdftex.def Info: logohori.pdf used on input line 57.
+(pdftex.def)             Requested size: 97.76396pt x 42.67912pt.
+ [3 <./images/vitesses-3d-apercu.png> <./images/vitesses-3d-selon-y.png>] (./ra
+pport.aux) ) 
 Here is how much of TeX's memory you used:
- 12150 strings out of 493315
- 254215 string characters out of 6137905
- 264900 words of memory out of 5000000
- 15395 multiletter control sequences out of 15000+600000
+ 12169 strings out of 493315
+ 254700 string characters out of 6137905
+ 264916 words of memory out of 5000000
+ 15409 multiletter control sequences out of 15000+600000
  66264 words of font info for 54 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 38i,9n,30p,739b,378s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}
-{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-rmsc.enc}</usr/local/
-texlive/2013/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/texlive/20
-13/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/local/texlive/2013/texmf-
-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/
-type1/public/lm/lmr12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/publi
-c/lm/lmss12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmssb
-x10.pfb>
-Output written on rapport.pdf (2 pages, 1198640 bytes).
+ 38i,9n,30p,765b,484s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/
+usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-rmsc.enc}</usr/local/te
+xlive/2013/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/texlive/2013
+/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/local/texlive/2013/texmf-di
+st/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/ty
+pe1/public/lm/lmr12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/
+lm/lmss12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmssbx1
+0.pfb>
+Output written on rapport.pdf (3 pages, 1537470 bytes).
 PDF statistics:
- 121 PDF objects out of 1000 (max. 8388607)
- 51 compressed objects within 1 object stream
+ 131 PDF objects out of 1000 (max. 8388607)
+ 54 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 
