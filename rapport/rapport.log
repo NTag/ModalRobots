@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.2.9)  6 JUN 2015 22:53
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.2.9)  7 JUN 2015 22:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -794,37 +794,41 @@ Package babel Info: Making ? an active character on input line 243.
 \parindentFFN=\dimen168
 ))
 (/usr/local/texlive/2013/texmf-dist/tex/latex/carlisle/scalefnt.sty)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/tools/varioref.sty
+Package: varioref 2011/10/02 v1.4z package for extended references (FMi)
+\c@vrcnt=\count145
+)
 (./rapport.aux)
 \openout1 = `rapport.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 16.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 17.
  (/usr/local/texlive/2013/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 (/usr/local/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count145
+\scratchcounter=\count146
 \scratchdimen=\dimen169
 \scratchbox=\box49
-\nofMPsegments=\count146
-\nofMParguments=\count147
+\nofMPsegments=\count147
+\nofMParguments=\count148
 \everyMPshowfont=\toks21
-\MPscratchCnt=\count148
+\MPscratchCnt=\count149
 \MPscratchDim=\dimen170
-\MPnumerator=\count149
-\makeMPintoPDFobject=\count150
+\MPnumerator=\count150
+\makeMPintoPDFobject=\count151
 \everyMPtoPDFconversion=\toks22
 )
 *geometry* driver: auto-detecting
@@ -988,46 +992,46 @@ Dictionary: translator-basic-dictionary, Language: English
 ons.cfg
 File: siunitx-abbreviations.cfg 2013/03/11 v2.5q siunitx: Abbreviated units
 )
-LaTeX Info: Redefining \degres on input line 16.
-LaTeX Info: Redefining \dots on input line 16.
-LaTeX Info: Redefining \up on input line 16.
+LaTeX Info: Redefining \degres on input line 17.
+LaTeX Info: Redefining \dots on input line 17.
+LaTeX Info: Redefining \up on input line 17.
 
 
 Package frenchb.ldf Warning: OT1 encoding should not be used for French. 
 (frenchb.ldf)                Add \usepackage[T1]{fontenc} to the preamble
-(frenchb.ldf)                of your document, on input line 16.
+(frenchb.ldf)                of your document, on input line 17.
 
-\c__siunitx_mathsf_int=\count151
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 16.
+\c__siunitx_mathsf_int=\count152
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 17.
 (/usr/local/texlive/2013/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 16.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 17.
 
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 16.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 17.
 
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 16.
+(Font)              <10.95> on input line 17.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 16.
+(Font)              <8> on input line 17.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 16.
-LaTeX Font Info:    Try loading font information for OT1+lmss on input line 16.
+(Font)              <6> on input line 17.
+LaTeX Font Info:    Try loading font information for OT1+lmss on input line 17.
 
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/lm/ot1lmss.fd
 File: ot1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-\c__siunitx_mathtt_int=\count152
-LaTeX Font Info:    Try loading font information for OT1+lmtt on input line 16.
+\c__siunitx_mathtt_int=\count153
+LaTeX Font Info:    Try loading font information for OT1+lmtt on input line 17.
 
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/lm/ot1lmtt.fd
@@ -1036,26 +1040,26 @@ File: ot1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 <armes.pdf, id=1, 195.21231pt x 257.65057pt>
 File: armes.pdf Graphic file (type pdf)
  <use armes.pdf>
-Package pdftex.def Info: armes.pdf used on input line 17.
+Package pdftex.def Info: armes.pdf used on input line 18.
 (pdftex.def)             Requested size: 268.93454pt x 354.92172pt.
-LaTeX Info: Redefining \\ on input line 17.
+LaTeX Info: Redefining \\ on input line 18.
 
 <filetcourtbleu.pdf, id=2, 28.40442pt x 2.16678pt>
 File: filetcourtbleu.pdf Graphic file (type pdf)
  <use filetcourtbleu.pdf>
-Package pdftex.def Info: filetcourtbleu.pdf used on input line 17.
+Package pdftex.def Info: filetcourtbleu.pdf used on input line 18.
 (pdftex.def)             Requested size: 28.40433pt x 2.16676pt.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 17.
+(Font)              <14.4> on input line 18.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 17.
+(Font)              <10> on input line 18.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 17.
+(Font)              <7> on input line 18.
 
 <logovert.pdf, id=3, 196.53926pt x 267.24042pt>
 File: logovert.pdf Graphic file (type pdf)
  <use logovert.pdf>
-Package pdftex.def Info: logovert.pdf used on input line 17.
+Package pdftex.def Info: logovert.pdf used on input line 18.
 (pdftex.def)             Requested size: 85.4339pt x 116.1684pt.
  [1
 
@@ -1067,13 +1071,13 @@ live/2013/texmf-dist/tex/latex/polytechnique/logovert.pdf>]
 File: images/vitesses-2d.png Graphic file (type png)
 
 <use images/vitesses-2d.png>
-Package pdftex.def Info: images/vitesses-2d.png used on input line 44.
+Package pdftex.def Info: images/vitesses-2d.png used on input line 46.
 (pdftex.def)             Requested size: 383.02745pt x 245.71573pt.
  <logohori.pdf, id=72, 195.52248pt x 85.3575pt>
 File: logohori.pdf Graphic file (type pdf)
 
 <use logohori.pdf>
-Package pdftex.def Info: logohori.pdf used on input line 48.
+Package pdftex.def Info: logohori.pdf used on input line 50.
 (pdftex.def)             Requested size: 97.76396pt x 42.67912pt.
  [2
 
@@ -1083,61 +1087,58 @@ mages/vitesses-2d.png>]
 File: images/vitesses-3d-apercu.png Graphic file (type png)
 
 <use images/vitesses-3d-apercu.png>
-Package pdftex.def Info: images/vitesses-3d-apercu.png used on input line 51.
-(pdftex.def)             Requested size: 217.25967pt x 180.22165pt.
+Package pdftex.def Info: images/vitesses-3d-apercu.png used on input line 54.
+(pdftex.def)             Requested size: 217.66211pt x 180.55164pt.
 
 <images/vitesses-3d-selon-y.png, id=103, 621.32124pt x 447.6725pt>
 File: images/vitesses-3d-selon-y.png Graphic file (type png)
 
 <use images/vitesses-3d-selon-y.png>
-Package pdftex.def Info: images/vitesses-3d-selon-y.png used on input line 52.
-(pdftex.def)             Requested size: 279.59198pt x 201.45076pt.
-
-Overfull \hbox (15.58812pt too wide) in paragraph at lines 51--53
-[][] [] 
- []
+Package pdftex.def Info: images/vitesses-3d-selon-y.png used on input line 56.
+(pdftex.def)             Requested size: 217.66211pt x 156.82434pt.
 
 <images/surface-regression.png, id=104, 521.95pt x 486.81876pt>
 File: images/surface-regression.png Graphic file (type png)
 
 <use images/surface-regression.png>
-Package pdftex.def Info: images/surface-regression.png used on input line 64.
+Package pdftex.def Info: images/surface-regression.png used on input line 68.
 (pdftex.def)             Requested size: 417.56056pt x 389.45554pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
 File: logohori.pdf Graphic file (type pdf)
-<use logohori.pdf>
-Package pdftex.def Info: logohori.pdf used on input line 67.
+ <use logohori.pdf>
+Package pdftex.def Info: logohori.pdf used on input line 77.
 (pdftex.def)             Requested size: 97.76396pt x 42.67912pt.
  [3 <./images/vitesses-3d-apercu.png> <./images/vitesses-3d-selon-y.png>]
 File: logohori.pdf Graphic file (type pdf)
  <use logohori.pdf>
-Package pdftex.def Info: logohori.pdf used on input line 67.
+Package pdftex.def Info: logohori.pdf used on input line 77.
 (pdftex.def)             Requested size: 97.76396pt x 42.67912pt.
  [4 <./images/surface-regression.png>]
-(./rapport.aux) ) 
+File: logohori.pdf Graphic file (type pdf)
+ <use logohori.pdf>
+Package pdftex.def Info: logohori.pdf used on input line 80.
+(pdftex.def)             Requested size: 97.76396pt x 42.67912pt.
+ [5] (./rapport.aux) ) 
 Here is how much of TeX's memory you used:
- 12176 strings out of 493315
- 254870 string characters out of 6137905
- 264924 words of memory out of 5000000
- 15415 multiletter control sequences out of 15000+600000
+ 12306 strings out of 493315
+ 256243 string characters out of 6137905
+ 268145 words of memory out of 5000000
+ 15542 multiletter control sequences out of 15000+600000
  66264 words of font info for 54 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 38i,9n,30p,765b,484s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-rm.e
-nc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-rmsc.enc}</usr/loc
-al/texlive/2013/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/texlive
-/2013/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/local/texlive/2013/tex
-mf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2013/texmf-dist/fon
-ts/type1/public/lm/lmr12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/pu
-blic/lm/lmss12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lm
-ssbx10.pfb>
-Output written on rapport.pdf (4 pages, 1666346 bytes).
+ 38i,9n,30p,765b,486s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm
+-mathsy.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/
+usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-rmsc.enc}</usr/local/te
+xlive/2013/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/texlive/2013
+/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/local/texlive/2013/texmf-di
+st/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/ty
+pe1/public/lm/lmr12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/
+lm/lmss12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmssbx1
+0.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsy6.pfb>
+Output written on rapport.pdf (5 pages, 1672537 bytes).
 PDF statistics:
- 136 PDF objects out of 1000 (max. 8388607)
- 56 compressed objects within 1 object stream
+ 144 PDF objects out of 1000 (max. 8388607)
+ 62 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
