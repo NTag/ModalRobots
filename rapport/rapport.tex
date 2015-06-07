@@ -36,6 +36,8 @@ L'objectif étant de déplacer le drone, c'est le mouvement ici qui nous intére
 
 Ensuite l'observation importante est que lorsque le robot vole et avance en longeant un mur à sa droite (en regardant devant lui) alors les points de l'image les plus à droite ont une vitesse horizontale plus élevée que les points qui sont plus vers le centre de l'image. Et lorsque le drone avance à vitesse constante, le profil des vitesses horizontales doit probablement rester constant : les points à droite auront toujours la même vitesse, et ceux plus vers le centre également. Nous avons donc essayé de trouver ce profil des vitesses lorsque le drone longe un mur à une certaine vitesse, et ensuite en comparant la vitesse des points avec le profil théorique, nous allons essayer de corriger la trajectoire du robot.
 
+
+\section{Expériences et obtention d'une courbe \og{}pratique\fg{}}
 Nous avons donc posé l'AR.Drone sur un TurtleBot que nous avons fait progressé en ligne droite le long d'un mur. Puis nous avons enregistré toutes les vitesses des points détectés par la caméra du drone. Afin d'avoir un maximum d'informations, nous avons ajouté des coins nous même sur le mur. Nous avons répété l'expérience une dizaine de fois, ce qui nous a permis d'obtenir les vitesses d'environ \num{25000} points.
 
 Les résultats sont présentés sur la figure \vref{vitesses-2d}.
@@ -76,5 +78,7 @@ Le principal soucis avec cet algorithme est que très souvent le drone ne mesura
 	\item Changer de stratégie et décider de tracer au sol une ligne qui longerait le mur, et utiliser la deuxième caméra du drone pour qu'il la suive. Mais avec un tel choix le drone serait alors moins autonome, et s'il volait trop haut il ne verrait plus cette ligne ;
 	\item Calculer le flot optique pour tous les points de l'image et pas seulement les coins. Cela nécessite beaucoup plus de puissance de calcul, mais on peut espérer de meilleurs résultats. C'est la solution vers laquelle nous nous sommes tournés.
 \end{itemize}
+
+Nous avons donc utilisé l'algorithme ?????? qui calcule la vitesse de tous les points de l'image. Cependant il est vite apparu qu'il s'agissait d'un calcul beaucoup trop couteux pour l'ordinateur portable Asus que nous avions, qui obtenait les résultats avec un retard de plusieurs secondes. Comme nous nous intéressions uniquement au tiers droit de l'image, nous avons rogné celle-ci, et comme ça n'était pas suffisant, nous avons divisé la résolution par quatre. Cette fois le calcul était effectué en temps réel.
 
 \end{document}
