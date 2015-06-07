@@ -61,12 +61,14 @@ class GoForward():
         #rospy.sleep(1)
         #self.cmd_vel.publish(move_up)
         self.vx = 0.2
+        self.vy = 0.1
         self.az = 0
         while not rospy.is_shutdown():
             move_forward = Twist()
             move_forward.linear.x = self.vx
+            move_forward.linear.y = 0
             move_forward.linear.z = 0
-            move_forward.angular.z = self.az
+            move_forward.angular.z = 0
             self.cmd_vel.publish(move_forward)
             r.sleep()
 
