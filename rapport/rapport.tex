@@ -28,6 +28,10 @@ Basile \textsc{Bruneau}}
 %Difficultés, problèmes avec cet algo
 %Résultats obtenus
 
+\section*{Introduction}
+Nous avions le choix dans ce MODAL entre trois robots : le TurtleBot, Nao et l'AR.Drone. Après avoir vu un aperçu des possibilités offertes par le TurtleBot et l'AR.Drone, notre choix s'est finalement porté sur ce dernier. Même s'il ne disposait pas de caméra de profondeur ou de détecteur de contact par exemple, la possibilité de voler nous semblait plus à même de lui trouver une application utile.
+
+Nous avons en effet décider d'essayer de lui faire surveiller des bâtiments. Concrètement nous souhaitions pouvoir le poser à côté du mur d'un bâtiment, qu'il détecte celui-ci et qu'il suive ensuite les murs pour en faire le tour. Grâce à sa caméra il serait ainsi possible de surveiller les alentours d'une construction, sans installation spécifique (pas de câble à tirer, de capteur à placer...).
 
 \section{Stratégie}
 L'AR.Drone disposant de peu de capteurs (pas de GPS, pas de caméra de profondeur) le seul que nous pouvions utiliser pour réaliser ce projet est la caméra frontale. C'est uniquement à partir de cet unique flux vidéo que nous avons essayé de faire suivre les murs au drone.
