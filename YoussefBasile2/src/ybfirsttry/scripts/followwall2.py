@@ -1,0 +1,162 @@
+#!/usr/bin/env python
+
+from std_msgs.msg import Empty
+from geometry_msgs.msg import Twist
+import numpy as np
+import cv2
+import video
+import rospy
+from std_msgs.msg import String
+from sensor_msgs.msg import Image
+from cv_bridge import CvBridge, CvBridgeError
+from common import anorm2, draw_str
+from time import clock
+import math
+
+help_message = '''
+USAGE: opt_flow.py [<video_source>]
+
+Keys:
+ 1 - toggle HSV flow visualization
+ 2 - toggle glitch
+
+'''
+class FollowWall():
+    def draw_flow(self, img, flow, step=16):
+        h, w = img.shape[:2]
+        y, x = np.mgrid[step/2:h:step, step/2:w:step].reshape(2,-1)
+        fx, fy = flow[y,x].T
+        lines = np.vstack([x, y, x+fx, y+fy]).T.reshape(-1, 2, 2)
+        lines = np.int32(lines + 0.5)
+        vis = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+        cv2.polylines(vis, lines, 0, (0, 255, 0))
+        for (x1, y1), (x2, y2) in lines:
+            cv2.circle(vis, (x1, y1), 1, (0, 255, 0), -1)
+        return vis
+
+    def callback(self,data):
+        try:
+            frameh = self.bridge.imgmsg_to_cv2(data, "bgr8")
+        except CvBridgeError, e:
+            print e
+        h, w = frameh.shape[:2]
+        frame = frameh[0:h:4, (2*w/3):(w):4]
+        h, w = frame.shape[:2]
+
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        if self.first:
+            self.first = False
+            self.prevgray = gray
+        else:
+            height, width, depth = frame.shape
+
+            flow = cv2.calcOpticalFlowFarneback(self.prevgray, gray, None, 0.5, 3, 15, 3, 5, 1.2, 0)
+            self.prevgray = gray
+
+            i = 0
+            vitessed = 0
+            nbd = 0
+            emoyen = 0
+            k = 0
+            for m in flow:
+                k += 1
+                for (a,b) in m:
+                    if (a > 1 or a < -1):
+                        vitesse = a
+                        nbd = nbd + 1
+                        vitessedt = self.vitesset(2*w/3 + (k%w)*4, math.floor(k/w))
+                        #print "{} {} >> {} ({} %)".format(vitesse, vitessedt, vitesse - vitessedt, 100*(vitesse - vitessedt)/vitessedt)
+                        emoyen = emoyen + 100*(vitesse - vitessedt)/vitessedt
+
+            if nbd == 0:
+                nbd = 1
+                emoyen = -100
+            vitessed = vitessed/nbd
+            emoyen = emoyen/nbd
+            print "Ecart moyen : {}".format(emoyen)
+            if nbd >= 20:
+                if emoyen >= 50:
+                    self.nbp += 1
+                    if self.nbp >= 3:
+                        self.vx = 0
+                        self.az = 0.8
+                        self.nbp = 1
+                elif emoyen <= -50:
+                    self.nbm += 1
+                    if self.nbm >= 3:
+                        self.az = -0.8
+                        self.vx = 0
+                        self.nbm = 1
+                else:
+                    self.az = 0
+                    self.vx = 0.1
+            else:
+                self.az = 0
+                self.vx = 0.1
+
+            cv2.imshow('flow', self.draw_flow(gray, flow))
+            cv2.waitKey(25)
+
+    def __init__(self):
+        self.bridge = CvBridge()
+        self.sub = rospy.Subscriber('/ardrone/front/image_raw', Image, self.callback)
+        self.first = True
+        rospy.init_node('FollowWall', anonymous=False)
+        rospy.loginfo("To stop AR.Drone CTRL + C")  
+        rospy.on_shutdown(self.shutdown)
+        
+        self.cmd_reset = rospy.Publisher('/ardrone/reset', Empty, queue_size=1)
+        self.cmd_take = rospy.Publisher('/ardrone/takeoff', Empty, queue_size=1)
+        self.cmd_land = rospy.Publisher('/ardrone/land', Empty, queue_size=1)
+        self.cmd_vel = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
+        rospy.sleep(5)	
+        self.cmd_reset.publish(Empty())
+
+        r = rospy.Rate(10)
+        rospy.sleep(5)
+        # Twist is a datatype for velocity
+        move_take = Empty()
+        self.cmd_take.publish(move_take)
+        #move_up = Twist()
+        #move_up.linear.z = 0.3
+        #self.cmd_vel.publish(move_up)
+        #self.cmd_vel.publish(move_up)
+        #self.cmd_vel.publish(move_up)
+        #rospy.sleep(1)
+        #self.cmd_vel.publish(move_up)
+        self.vx = 0.1
+        self.az = 0
+        self.nbp = 0
+        self.nbm = 0
+        while not rospy.is_shutdown():
+            move_forward = Twist()
+            move_forward.linear.x = self.vx
+            move_forward.linear.y = 0
+            move_forward.linear.z = 0
+            move_forward.angular.z = self.az
+            self.cmd_vel.publish(move_forward)
+            r.sleep()
+
+    def vitesset(self, x, y):
+        return 0.5*(2.28127677e+01 -2.72574113e-01*x -1.49826090e-02*y +7.83386484e-04*x*x +3.24478877e-04*x*y -2.27923981e-04*y*y)
+
+    def shutdown(self):
+        # stop turtlebot
+        rospy.loginfo("Stop Drone")
+        r = rospy.Rate(10)
+	    # a default Twist has linear.x of 0 and angular.z of 0.  So it'll stop TurtleBot
+        move_forward = Twist()
+        move_forward.linear.x = 1
+        move_forward.linear.z = 0
+        move_forward.angular.z = 0
+        self.cmd_land.publish(Empty())
+	    # sleep just makes sure TurtleBot receives the stop command prior to shutting down the script
+        rospy.sleep(3)
+
+if __name__ == '__main__':
+    try:
+        FollowWall()
+    except:
+        rospy.loginfo("FollowWall node terminated.")
+
+
