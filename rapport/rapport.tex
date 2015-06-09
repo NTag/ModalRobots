@@ -114,7 +114,22 @@ Il semble alors que la coordonnée y a une importance, les points en haut de l'i
 \section{Régression polynomiale des données}
 Afin de pouvoir comparer rapidement la vitesse réelle d'un point avec la vitesse théorique d'un point à la même position si le drone longeait à la bonne vitesse et à la bonne distance un mur, il nous faut obtenir une fonction qui à des coordonnées retourne la vitesse théorique. On ne peut pas consulter les \num{25000} mesures et retourner la vitesse du point le plus proche dont on avait mesuré la vitesse.
 
-Nous avons donc choisi d'effectuer une régression polynomiale pour obtenir l'équation d'une courbe \og{}théorique\fg{}. Nous avons utilisé Scikit qui propose plusieurs outils pour calculer ce genre de chose. Finalement voici la courbe que nous avons obtenue, figure \vref{regression}, en demandant un polynôme de degré 2.
+Nous avons donc choisi d'effectuer une régression polynomiale pour obtenir l'équation d'une courbe \og{}théorique\fg{}. Nous avons utilisé Scikit qui propose plusieurs outils pour calculer ce genre de chose. 
+
+\begin{lstlisting}
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+from sklearn.pipeline import Pipeline
+model = Pipeline([('poly', PolynomialFeatures(degree=4)), ('linear',LinearRegression(fit_intercept=False))])
+x = [[247.02, 99.29],[286.24, 126.29], ... ]
+y = [ ... ]
+z = [ ... ]
+model = model.fit(x, z)
+print model.named_steps['linear'].coef_
+# z = 2.28127677e+01 -2.72574113e-01*x -1.49826090e-02*y +7.83386484e-04*x^2 +3.24478877e-04*x*y -2.27923981e-04*y^2
+\end{lstlisting}
+
+Finalement voici la courbe que nous avons obtenue, figure \vref{regression}, en demandant un polynôme de degré 2.
 
 \begin{figure}
 	\caption{\label{regression} Surface obtenue par régression polynomiale}
