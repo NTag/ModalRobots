@@ -1,4 +1,7 @@
 rapport/rapport.aux
 rapport/rapport.log
 rapport/rapport.synctex.gz
+rapport/.DS_Store
+rapport/rapport.fdb_latexmk
+rapport/rapport.fls
 .DS_Store
