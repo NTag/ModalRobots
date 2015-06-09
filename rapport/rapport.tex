@@ -33,6 +33,17 @@ Nous avions le choix dans ce MODAL entre trois robots : le TurtleBot, Nao et l'A
 
 Nous avons en effet décider d'essayer de lui faire surveiller des bâtiments. Concrètement nous souhaitions pouvoir le poser à côté du mur d'un bâtiment, qu'il détecte celui-ci et qu'il suive ensuite les murs pour en faire le tour. Grâce à sa caméra il serait ainsi possible de surveiller les alentours d'une construction, sans installation spécifique (pas de câble à tirer, de capteur à placer...).
 
+\section{Connexion au drone}
+Pour faire communiquer l'AR.Drone avec ROS, nous avons utilisé le driver ROS ardrone\_autonomy. Nous l'avons installé depuis les packages Ubuntu, puis il faut ensuite exécuter la commande rosrun ardrone\_autonomy ardrone\_driver pour que les différents topics proposés par le drone soient accessibles.
+
+Deux topics nous intéressaient en particulier :
+\begin{itemize}
+	\item ardrone/front/image\_raw : qui permet d'accéder au flux vidéo de la caméra frontale ;
+	\item ardrone/cmd\_vel : qui permet d'envoyer une instruction de direction à l'AR.Drone (au format geometry\_msgs::Twist).
+\end{itemize}
+
+Nous avons également utilisé les topics ardrone/takeoff, ardrone/land et ardrone/reset qui permettent respectivement de faire décoller, atterrir, et demander la réinitialisation du drone après un crash par exemple.
+
 \section{Stratégie}
 L'AR.Drone disposant de peu de capteurs (pas de GPS, pas de caméra de profondeur) le seul que nous pouvions utiliser pour réaliser ce projet est la caméra frontale. C'est uniquement à partir de cet unique flux vidéo que nous avons essayé de faire suivre les murs au drone.
 
