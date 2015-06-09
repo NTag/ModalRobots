@@ -5,6 +5,29 @@
 \usepackage[utf8]{inputenc}
 \usepackage[frenchb]{babel}
 \usepackage[french]{varioref}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+	language=Python,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
 
 \title{Rapport de MODAL}
 \subtitle{Comment faire suivre les murs à un drone}
@@ -38,11 +61,11 @@ Pour faire communiquer l'AR.Drone avec ROS, nous avons utilisé le driver ROS ar
 
 Deux topics nous intéressaient en particulier :
 \begin{itemize}
-	\item ardrone/front/image\_raw : qui permet d'accéder au flux vidéo de la caméra frontale ;
-	\item ardrone/cmd\_vel : qui permet d'envoyer une instruction de direction à l'AR.Drone (au format geometry\_msgs::Twist).
+	\item /ardrone/front/image\_raw : qui permet d'accéder au flux vidéo de la caméra frontale ;
+	\item /cmd\_vel : qui permet d'envoyer une instruction de direction à l'AR.Drone (au format geometry\_msgs::Twist).
 \end{itemize}
 
-Nous avons également utilisé les topics ardrone/takeoff, ardrone/land et ardrone/reset qui permettent respectivement de faire décoller, atterrir, et demander la réinitialisation du drone après un crash par exemple.
+Nous avons également utilisé les topics /ardrone/takeoff, /ardrone/land et /ardrone/reset qui permettent respectivement de faire décoller, atterrir, et demander la réinitialisation du drone après un crash par exemple.
 
 \section{Stratégie}
 L'AR.Drone disposant de peu de capteurs (pas de GPS, pas de caméra de profondeur) le seul que nous pouvions utiliser pour réaliser ce projet est la caméra frontale. C'est uniquement à partir de cet unique flux vidéo que nous avons essayé de faire suivre les murs au drone.
@@ -51,6 +74,19 @@ L'objectif étant de déplacer le drone, c'est le mouvement ici qui nous intére
 
 Ensuite l'observation importante est que lorsque le robot vole et avance en longeant un mur à sa droite (en regardant devant lui) alors les points de l'image les plus à droite ont une vitesse horizontale plus élevée que les points qui sont plus vers le centre de l'image. Et lorsque le drone avance à vitesse constante, le profil des vitesses horizontales doit probablement rester constant : les points à droite auront toujours la même vitesse, et ceux plus vers le centre également. Nous avons donc essayé de trouver ce profil des vitesses lorsque le drone longe un mur à une certaine vitesse, et ensuite en comparant la vitesse des points avec le profil théorique, nous allons essayer de corriger la trajectoire du robot.
 
+\section{Communication avec OpenCV}
+L'algorithme lk\_tracks est disponible grâce à OpenCV (calcul du flot optique pour certains points), il nous fallait déjà faire parvenir les images du drone à OpenCV. Nous avons utilisé pour ça CvBridge() qui permet de convertir les données en objet géré par OpenCV2. Ensuite on utilise la méthode imgmsg\_to\_cv2(data, "bgr8") où data correspond aux données directement renvoyées par le topic /ardrone/front/image\_raw.
+
+\begin{lstlisting}
+def __init__(self):
+	self.bridge = CvBridge()
+	self.sub = rospy.Subscriber('/ardrone/front/image_raw', Image, self.callback)
+def callback(self,data):
+	try:
+		frame = self.bridge.imgmsg_to_cv2(data, "bgr8")
+	except CvBridgeError, e:
+		print e
+\end{lstlisting}
 
 \section{Expériences et obtention d'une courbe \og{}pratique\fg{}}
 Nous avons donc posé l'AR.Drone sur un TurtleBot que nous avons fait progressé en ligne droite le long d'un mur. Puis nous avons enregistré toutes les vitesses des points détectés par la caméra du drone. Afin d'avoir un maximum d'informations, nous avons ajouté des coins nous même sur le mur. Nous avons répété l'expérience une dizaine de fois, ce qui nous a permis d'obtenir les vitesses d'environ \num{25000} points.
@@ -95,5 +131,9 @@ Le principal soucis avec cet algorithme est que très souvent le drone ne mesura
 \end{itemize}
 
 Nous avons donc utilisé l'algorithme opt\_flow qui calcule la vitesse de tous les points de l'image. Cependant il est vite apparu qu'il s'agissait d'un calcul beaucoup trop couteux pour l'ordinateur portable Asus que nous avions, qui obtenait les résultats avec un retard de plusieurs secondes. Comme nous nous intéressions uniquement au tiers droit de l'image, nous avons rogné celle-ci, et comme ça n'était pas suffisant, nous avons divisé la résolution par quatre. Cette fois le calcul était effectué en temps réel.
+
+\newpage
+
+\section*{Conclusion}
 
 \end{document}
