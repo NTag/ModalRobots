@@ -2,7 +2,7 @@
 
 from std_msgs.msg import Empty
 from geometry_msgs.msg import Twist
-from ardrone_autonomy import Navdata
+from ardrone_autonomy.msg import Navdata
 import numpy as np
 import cv2
 import video
@@ -15,7 +15,7 @@ from time import clock
 import math
 
 help_message = '''
-Fait décoller le drone,
+Fait decoller le drone,
 puis fait lui suivre le mur
 a sa droite.
 
@@ -39,8 +39,11 @@ class FollowWall():
         except CvBridgeError, e:
             print e
 
-        # On réduit fortement la résolution de l'image
-        # et on ne s'intéresse qu'au tiers droit.
+        if not self.fly:
+            return
+        
+        # On reduit fortement la resolution de l'image
+        # et on ne s'interesse qu'au tiers droit.
         h, w = frameh.shape[:2]
         frame = frameh[0:h:4, (2*w/3):(w):4]
         h, w = frame.shape[:2]
@@ -66,8 +69,8 @@ class FollowWall():
                     if (a > 1 or a < -1):
                         vitesse = a
                         nbd = nbd + 1
-                        # Comme l'image a été redimensionnée,
-                        # il faut recalculer les coordonnées
+                        # Comme l'image a ete redimensionnee,
+                        # il faut recalculer les coordonnees
                         # initiales du point
                         vitessedt = self.vitesset(2*w/3 + (k%w)*4, math.floor(k/w))
                         #print "{} {} >> {} ({} %)".format(vitesse, vitessedt, vitesse - vitessedt, 100*(vitesse - vitessedt)/vitessedt)
@@ -103,8 +106,11 @@ class FollowWall():
             cv2.waitKey(25)
 
     def __init__(self):
+        self.hasInfos = False
+        self.fly = False
         self.bridge = CvBridge()
         self.sub = rospy.Subscriber('/ardrone/front/image_raw', Image, self.callback)
+        self.infoss = rospy.Subscriber('/ardrone/navdata', Navdata, self.verifystatus)
         self.first = True
         rospy.init_node('FollowWall', anonymous=False)
         rospy.loginfo("To stop AR.Drone CTRL + C")
@@ -114,33 +120,41 @@ class FollowWall():
         self.cmd_take = rospy.Publisher('/ardrone/takeoff', Empty, queue_size=1)
         self.cmd_land = rospy.Publisher('/ardrone/land', Empty, queue_size=1)
         self.cmd_vel = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
-        self.infos = rospy.Subscriber('/ardrone/navdata', Navdata, self.verifyStatus)
-        self.hasInfos = False
-        rospy.sleep(5)
-        self.cmd_reset.publish(Empty())
-
-        r = rospy.Rate(10)
+        while not rospy.is_shutdown():
+            r = rospy.Rate(10)
+            r.sleep()
 
     def vitesset(self, x, y):
         return 0.5*(2.28127677e+01 -2.72574113e-01*x -1.49826090e-02*y +7.83386484e-04*x*x +3.24478877e-04*x*y -2.27923981e-04*y*y)
 
-    def verifyStatus(self, data):
-        if !self.hasInfos:
-            print "Batterie : {}%",data.batteryPercent
-            print "Status : {}", data.status
+    def verifystatus(self, data):
+        if not self.hasInfos:
+            print "Batterie : {}%".format(data.batteryPercent)
+            print "Statut : ", data.state
             if data.state == 0:
                 self.hasInfos = True
+                rospy.sleep(5)
+                rospy.loginfo("Initialisation")
                 self.cmd_reset.publish(Empty())
                 rospy.sleep(5)
+                rospy.loginfo("Decollage");
                 self.takeoff()
+            elif data.state == 2:
+                self.hasInfos = True
+                rospy.loginfo("Decollage")
+                self.takeoff()
+            rospy.sleep(1)
 
     def takeoff(self):
+        rospy.sleep(5)
         move_take = Empty()
         self.cmd_take.publish(move_take)
         self.vx = 0.1
         self.az = 0
         self.nbp = 0
         self.nbm = 0
+        r = rospy.Rate(10)
+        self.fly = True
         while not rospy.is_shutdown():
             move_forward = Twist()
             move_forward.linear.x = self.vx
@@ -152,6 +166,7 @@ class FollowWall():
 
     def shutdown(self):
         rospy.loginfo("Stop Drone")
+        self.fly = False
         r = rospy.Rate(10)
         self.cmd_land.publish(Empty())
         rospy.sleep(3)
