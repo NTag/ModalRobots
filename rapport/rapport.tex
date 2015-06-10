@@ -114,7 +114,9 @@ Il semble alors que la coordonnée y a une importance, les points en haut de l'i
 \section{Régression polynomiale des données}
 Afin de pouvoir comparer rapidement la vitesse réelle d'un point avec la vitesse théorique d'un point à la même position si le drone longeait à la bonne vitesse et à la bonne distance un mur, il nous faut obtenir une fonction qui à des coordonnées retourne la vitesse théorique. On ne peut pas consulter les \num{25000} mesures et retourner la vitesse du point le plus proche dont on avait mesuré la vitesse.
 
-Nous avons donc choisi d'effectuer une régression polynomiale pour obtenir l'équation d'une courbe \og{}théorique\fg{}. Nous avons utilisé Scikit qui propose plusieurs outils pour calculer ce genre de chose. 
+Nous avons donc choisi d'effectuer une régression polynomiale pour obtenir l'équation d'une courbe \og{}théorique\fg{}. Nous avons utilisé Scikit qui propose plusieurs outils pour calculer ce genre de chose.
+
+Nous ne lui avons pas donné les \num{25000} points, mais seulement quelques milliers. Nous avons de plus écarté quatre de nos treize expériences, qui nous paraissaient faussées (où le TurtleBot avait beaucoup dévié de sa trajectoire, normalement rectiligne).
 
 \begin{lstlisting}
 from sklearn.preprocessing import PolynomialFeatures
@@ -146,6 +148,8 @@ Le principal soucis avec cet algorithme est que très souvent le drone ne mesura
 \end{itemize}
 
 Nous avons donc utilisé l'algorithme opt\_flow qui calcule la vitesse de tous les points de l'image. Cependant il est vite apparu qu'il s'agissait d'un calcul beaucoup trop couteux pour l'ordinateur portable Asus que nous avions, qui obtenait les résultats avec un retard de plusieurs secondes. Comme nous nous intéressions uniquement au tiers droit de l'image, nous avons rogné celle-ci, et comme ça n'était pas suffisant, nous avons divisé la résolution par quatre. Cette fois le calcul était effectué en temps réel.
+
+Cela demandait cependant une légère adaptation du code, car nous avions donc une fonction qui à des coordonnées retourne une vitesse théorique, mais après le redimensionnement le l'image, les coordonnées sont faussées. Il faut donc calculer les coordonnées initiales du pixel, avant le redimensionnement de l'image.
 
 \newpage
 
