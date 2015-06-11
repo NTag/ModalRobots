@@ -2,6 +2,7 @@
 
 from std_msgs.msg import Empty
 from geometry_msgs.msg import Twist
+from ardrone_autonomy.msg import Navdata
 import numpy as np
 import cv2
 import video
@@ -14,11 +15,9 @@ from time import clock
 import math
 
 help_message = '''
-USAGE: opt_flow.py [<video_source>]
-
-Keys:
- 1 - toggle HSV flow visualization
- 2 - toggle glitch
+Fait decoller le drone,
+puis fait lui suivre le mur
+a sa droite.
 
 '''
 class FollowWall():
@@ -39,6 +38,12 @@ class FollowWall():
             frameh = self.bridge.imgmsg_to_cv2(data, "bgr8")
         except CvBridgeError, e:
             print e
+
+        if not self.fly:
+            return
+
+        # On reduit fortement la resolution de l'image
+        # et on ne s'interesse qu'au tiers droit.
         h, w = frameh.shape[:2]
         frame = frameh[0:h:4, (2*w/3):(w):4]
         h, w = frame.shape[:2]
@@ -64,6 +69,9 @@ class FollowWall():
                     if (a > 1 or a < -1):
                         vitesse = a
                         nbd = nbd + 1
+                        # Comme l'image a ete redimensionnee,
+                        # il faut recalculer les coordonnees
+                        # initiales du point
                         vitessedt = self.vitesset(2*w/3 + (k%w)*4, math.floor(k/w))
                         #print "{} {} >> {} ({} %)".format(vitesse, vitessedt, vitesse - vitessedt, 100*(vitesse - vitessedt)/vitessedt)
                         emoyen = emoyen + 100*(vitesse - vitessedt)/vitessedt
@@ -75,59 +83,71 @@ class FollowWall():
             emoyen = emoyen/nbd
             print "Ecart moyen : {}".format(emoyen)
             if nbd >= 20:
-                if emoyen >= 50:
-                    self.nbp += 1
-                    if self.nbp >= 3:
-                        self.vx = 0
-                        self.az = 0.8
-                        self.nbp = 1
-                elif emoyen <= -50:
-                    self.nbm += 1
-                    if self.nbm >= 3:
-                        self.az = -0.8
-                        self.vx = 0
-                        self.nbm = 1
-                else:
-                    self.az = 0
-                    self.vx = 0.1
-            else:
-                self.az = 0
-                self.vx = 0.1
+                if emoyen >= 20 || emoyen <= -20:
+                    self.speed[self.speed['c']] = emoyen
+                    self.speed['c'] += 1 % 3
+                    if not self.speed['finish'] && self.speed['c'] == 0:
+                        self.speed['finish'] = True
+                    if self.speed['finish']:
+                        emoyen3 = (self.speed[0] + self.speed[1] + self.speed[2])/3
+                        print "Ecart moyenne 3 : {}".format(emoyen3)
+                        self.vx = math.max(0, 0.1 - math.abs(emoyen3)/1000)
+                        self.az = emoyen3/100
 
             cv2.imshow('flow', self.draw_flow(gray, flow))
             cv2.waitKey(25)
 
     def __init__(self):
+        self.hasInfos = False
+        self.fly = False
         self.bridge = CvBridge()
         self.sub = rospy.Subscriber('/ardrone/front/image_raw', Image, self.callback)
+        self.infoss = rospy.Subscriber('/ardrone/navdata', Navdata, self.verifystatus)
         self.first = True
         rospy.init_node('FollowWall', anonymous=False)
-        rospy.loginfo("To stop AR.Drone CTRL + C")  
+        rospy.loginfo("To stop AR.Drone CTRL + C")
         rospy.on_shutdown(self.shutdown)
-        
+
         self.cmd_reset = rospy.Publisher('/ardrone/reset', Empty, queue_size=1)
         self.cmd_take = rospy.Publisher('/ardrone/takeoff', Empty, queue_size=1)
         self.cmd_land = rospy.Publisher('/ardrone/land', Empty, queue_size=1)
         self.cmd_vel = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
-        rospy.sleep(5)	
-        self.cmd_reset.publish(Empty())
+        while not rospy.is_shutdown():
+            r = rospy.Rate(10)
+            r.sleep()
 
-        r = rospy.Rate(10)
+    def vitesset(self, x, y):
+        return 0.5*(2.28127677e+01 -2.72574113e-01*x -1.49826090e-02*y +7.83386484e-04*x*x +3.24478877e-04*x*y -2.27923981e-04*y*y)
+
+    def verifystatus(self, data):
+        if not self.hasInfos:
+            print "Batterie : {}%".format(data.batteryPercent)
+            print "Statut : ", data.state
+            if data.state == 0:
+                self.hasInfos = True
+                rospy.sleep(5)
+                rospy.loginfo("Initialisation")
+                self.cmd_reset.publish(Empty())
+                rospy.sleep(5)
+                rospy.loginfo("Decollage");
+                self.takeoff()
+            elif data.state == 2:
+                self.hasInfos = True
+                rospy.loginfo("Decollage")
+                self.takeoff()
+            rospy.sleep(1)
+
+    def takeoff(self):
         rospy.sleep(5)
-        # Twist is a datatype for velocity
         move_take = Empty()
         self.cmd_take.publish(move_take)
-        #move_up = Twist()
-        #move_up.linear.z = 0.3
-        #self.cmd_vel.publish(move_up)
-        #self.cmd_vel.publish(move_up)
-        #self.cmd_vel.publish(move_up)
-        #rospy.sleep(1)
-        #self.cmd_vel.publish(move_up)
         self.vx = 0.1
         self.az = 0
         self.nbp = 0
         self.nbm = 0
+        self.speed = {0: 0, 1: 0, 2: 0, 'c': 0, 'finish': False}
+        r = rospy.Rate(10)
+        self.fly = True
         while not rospy.is_shutdown():
             move_forward = Twist()
             move_forward.linear.x = self.vx
@@ -137,20 +157,11 @@ class FollowWall():
             self.cmd_vel.publish(move_forward)
             r.sleep()
 
-    def vitesset(self, x, y):
-        return 0.5*(2.28127677e+01 -2.72574113e-01*x -1.49826090e-02*y +7.83386484e-04*x*x +3.24478877e-04*x*y -2.27923981e-04*y*y)
-
     def shutdown(self):
-        # stop turtlebot
         rospy.loginfo("Stop Drone")
+        self.fly = False
         r = rospy.Rate(10)
-	    # a default Twist has linear.x of 0 and angular.z of 0.  So it'll stop TurtleBot
-        move_forward = Twist()
-        move_forward.linear.x = 1
-        move_forward.linear.z = 0
-        move_forward.angular.z = 0
         self.cmd_land.publish(Empty())
-	    # sleep just makes sure TurtleBot receives the stop command prior to shutting down the script
         rospy.sleep(3)
 
 if __name__ == '__main__':
@@ -158,5 +169,3 @@ if __name__ == '__main__':
         FollowWall()
     except:
         rospy.loginfo("FollowWall node terminated.")
-
-
