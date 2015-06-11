@@ -7,7 +7,7 @@
 \usepackage[french]{varioref}
 \usepackage{listings}
 \usepackage{color}
-
+\usepackage{graphicx}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -59,7 +59,7 @@ Nous avons en effet décider d'essayer de lui faire surveiller des bâtiments. C
 
 \renewcommand{\contentsname}{Sommaire}
 \tableofcontents
-
+\listoffigures
 \newpage
 
 \section{Connexion au drone}
@@ -99,15 +99,16 @@ Nous avons donc posé l'AR.Drone sur un TurtleBot que nous avons fait progressé
 
 Les résultats sont présentés sur la figure \vref{vitesses-2d}.
 
-\begin{figure}
+\begin{figure}[!h]
 	\centering
-	\caption{\label{vitesses-2d} Vitesse horizontale en fonction de la coordonnée horizontale}
+	\caption{ Vitesse horizontale en fonction de la coordonnée horizontale}
+	\label{vitesses-2d}
 	\includegraphics[scale=0.45]{images/vitesses-2d.png}
 \end{figure}
 
 On voit déjà que la vitesse horizontale au centre de l'image est quasiment nulle et qu'elle augmente plus on va vers la droite, ce qui confirme bien notre idée initiale. Nous nous sommes ensuite demandés si la coordonnée verticale avait aussi une importance. Pour ça nous avons donc tracé la vitesse horizontale en fonction de x et y sur la figure \vref{vitesses-3d}.
 
-\begin{figure}
+\begin{figure}[!h]
 	\centering
 	\caption{\label{vitesses-3d} Vitesse horizontale en fonction de x et y}
 	\includegraphics[width=0.45\textwidth]{images/vitesses-3d-apercu.png}
@@ -140,10 +141,11 @@ print model.named_steps['linear'].coef_
 Finalement voici la courbe que nous avons obtenue, figure \vref{regression}, en demandant un polynôme de degré 2.
 
 \begin{figure}
+	\centering
 	\caption{\label{regression} Surface obtenue par régression polynomiale}
-	\hfill
-	\includegraphics[scale=0.8]{images/surface-regression.png}
-	\hfill
+	
+	\includegraphics[scale=0.5]{images/surface-regression.png}
+	
 \end{figure}
 
 

@@ -3,6 +3,6 @@
 \contentsline {section}{\numberline {2}Strat\IeC {\'e}gie}{3}
 \contentsline {section}{\numberline {3}Communication avec OpenCV}{3}
 \contentsline {section}{\numberline {4}Exp\IeC {\'e}riences et obtention d'une courbe \FB@og {}pratique\fg {}}{4}
-\contentsline {section}{\numberline {5}R\IeC {\'e}gression polynomiale des donn\IeC {\'e}es}{4}
-\contentsline {section}{\numberline {6}Premiers essais et am\IeC {\'e}liorations}{5}
+\contentsline {section}{\numberline {5}R\IeC {\'e}gression polynomiale des donn\IeC {\'e}es}{5}
+\contentsline {section}{\numberline {6}Premiers essais et am\IeC {\'e}liorations}{6}
 \contentsline {section}{\numberline {7}R\IeC {\'e}sultats et probl\IeC {\`e}mes}{7}
