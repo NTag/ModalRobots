@@ -41,7 +41,7 @@ class FollowWall():
 
         if not self.fly:
             return
-        
+
         # On reduit fortement la resolution de l'image
         # et on ne s'interesse qu'au tiers droit.
         h, w = frameh.shape[:2]
@@ -83,24 +83,16 @@ class FollowWall():
             emoyen = emoyen/nbd
             print "Ecart moyen : {}".format(emoyen)
             if nbd >= 20:
-                if emoyen >= 50:
-                    self.nbp += 1
-                    if self.nbp >= 3:
-                        self.vx = 0
-                        self.az = 0.8
-                        self.nbp = 1
-                elif emoyen <= -50:
-                    self.nbm += 1
-                    if self.nbm >= 3:
-                        self.az = -0.8
-                        self.vx = 0
-                        self.nbm = 1
-                else:
-                    self.az = 0
-                    self.vx = 0.1
-            else:
-                self.az = 0
-                self.vx = 0.1
+                if emoyen >= 20 || emoyen <= -20:
+                    self.speed[self.speed['c']] = emoyen
+                    self.speed['c'] += 1 % 3
+                    if not self.speed['finish'] && self.speed['c'] == 0:
+                        self.speed['finish'] = True
+                    if self.speed['finish']:
+                        emoyen3 = (self.speed[0] + self.speed[1] + self.speed[2])/3
+                        print "Ecart moyenne 3 : {}".format(emoyen3)
+                        self.vx = math.max(0, 0.1 - math.abs(emoyen3)/1000)
+                        self.az = emoyen3/100
 
             cv2.imshow('flow', self.draw_flow(gray, flow))
             cv2.waitKey(25)
@@ -153,6 +145,7 @@ class FollowWall():
         self.az = 0
         self.nbp = 0
         self.nbm = 0
+        self.speed = {0: 0, 1: 0, 2: 0, 'c': 0, 'finish': False}
         r = rospy.Rate(10)
         self.fly = True
         while not rospy.is_shutdown():
